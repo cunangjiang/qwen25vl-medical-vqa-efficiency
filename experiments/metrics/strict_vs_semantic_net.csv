@@ -1,0 +1,5 @@
+comparison,display_name,strict_gain,strict_loss,strict_net,semantic_correction,semantic_regression,semantic_net
+zero_native -> lora_native,Zero -> LoRA,42,18,24,38,16,22
+lora_native -> lora_vt1024,Native -> VT1024,2,1,1,2,1,1
+lora_native -> lora_vt512,Native -> VT512,10,6,4,7,6,1
+lora_native -> lora_vt256,Native -> VT256,8,20,-12,6,19,-13

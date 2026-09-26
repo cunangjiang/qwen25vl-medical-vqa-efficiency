@@ -1,0 +1,296 @@
+{
+  "dataset": {
+    "name": "VQA-RAD",
+    "distribution": "flaviagiammarino/vqa-rad",
+    "test_qa": 451,
+    "closed": 251,
+    "open": 200,
+    "metric": "project normalized exact match",
+    "open_token_f1": "diagnostic only",
+    "split_is_image_disjoint": false
+  },
+  "training": {
+    "method": "regular BF16 LoRA SFT",
+    "base_model": "Qwen2.5-VL-3B-Instruct",
+    "train_qa": 1612,
+    "val_qa": 181,
+    "train_unique_images": 282,
+    "val_unique_images": 31,
+    "train_val_image_overlap": 0,
+    "epochs": 1,
+    "optimizer_steps": 202,
+    "target_modules": "all-linear",
+    "freeze_vit": true,
+    "freeze_aligner": true,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "learning_rate": 0.0001,
+    "per_device_train_batch_size": 1,
+    "per_device_eval_batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "max_length": 4096,
+    "seed": 42,
+    "total_parameters": 3769589800,
+    "trainable_parameters": 14966800,
+    "trainable_ratio_pct": 0.397,
+    "train_runtime_seconds": 1842.619,
+    "train_loss": 0.74308841,
+    "eval_loss": 0.41842237,
+    "teacher_forced_eval_token_acc": 0.86019971,
+    "framework_memory_gib": 12.03,
+    "note": "eval_token_acc is teacher-forced token accuracy, not VQA accuracy"
+  },
+  "quality_conditions": [
+    {
+      "condition": "zero_native",
+      "full451_num_correct": 233,
+      "full451_avg_visual_tokens": 871.5631929046564,
+      "overall_em": 0.516629711751663,
+      "closed_em": 0.7370517928286853,
+      "open_em": 0.24,
+      "open_token_f1": 0.31860319
+    },
+    {
+      "condition": "lora_native",
+      "full451_num_correct": 257,
+      "full451_avg_visual_tokens": 871.5631929046564,
+      "overall_em": 0.5698447893569845,
+      "closed_em": 0.8087649402390438,
+      "open_em": 0.27,
+      "open_token_f1": 0.387591645
+    },
+    {
+      "condition": "lora_vt256",
+      "full451_num_correct": 245,
+      "full451_avg_visual_tokens": 238.3880266075388,
+      "overall_em": 0.5432372505543237,
+      "closed_em": 0.7569721115537849,
+      "open_em": 0.275,
+      "open_token_f1": 0.3926349349999999
+    },
+    {
+      "condition": "lora_vt512",
+      "full451_num_correct": 261,
+      "full451_avg_visual_tokens": 422.8248337028825,
+      "overall_em": 0.5787139689578714,
+      "closed_em": 0.8167330677290837,
+      "open_em": 0.28,
+      "open_token_f1": 0.393289695
+    },
+    {
+      "condition": "lora_vt1024",
+      "full451_num_correct": 258,
+      "full451_avg_visual_tokens": 694.2838137472284,
+      "overall_em": 0.5720620842572062,
+      "closed_em": 0.8127490039840638,
+      "open_em": 0.27,
+      "open_token_f1": 0.38875831
+    }
+  ],
+  "latency_protocol": {
+    "model_loaded_once": true,
+    "warmup_before_measurement": true,
+    "empty_cache_inside_timing": false,
+    "reset_peak_memory_inside_timing": false,
+    "cuda_synchronize_for_generate": true,
+    "dataset_retrieval_in_e2e": false,
+    "pil_conversion_in_e2e": false,
+    "gpu_transfer_in_e2e": true,
+    "decode_in_e2e": true,
+    "budget_order": [
+      [
+        "vt256",
+        "vt512",
+        "vt1024",
+        "lora_native"
+      ],
+      [
+        "vt512",
+        "vt1024",
+        "lora_native",
+        "vt256"
+      ],
+      [
+        "vt1024",
+        "lora_native",
+        "vt256",
+        "vt512"
+      ],
+      [
+        "lora_native",
+        "vt256",
+        "vt512",
+        "vt1024"
+      ]
+    ]
+  },
+  "latency_conditions": {
+    "vt256": {
+      "n_measurements": 200,
+      "avg_visual_tokens": 241.12,
+      "avg_output_tokens": 2.94,
+      "generate_ms": {
+        "mean": 152.23353871144354,
+        "median": 125.2363957464695,
+        "p95": 280.0943800248205
+      },
+      "e2e_ms": {
+        "mean": 172.81688740476966,
+        "median": 150.88189393281937,
+        "p95": 298.1770337559283
+      }
+    },
+    "vt512": {
+      "n_measurements": 200,
+      "avg_visual_tokens": 436.84,
+      "avg_output_tokens": 2.9,
+      "generate_ms": {
+        "mean": 200.51946028135717,
+        "median": 190.62702916562557,
+        "p95": 301.45095782354474
+      },
+      "e2e_ms": {
+        "mean": 222.19227985478938,
+        "median": 217.05101616680622,
+        "p95": 335.4213263839483
+      }
+    },
+    "vt1024": {
+      "n_measurements": 200,
+      "avg_visual_tokens": 759.92,
+      "avg_output_tokens": 2.68,
+      "generate_ms": {
+        "mean": 291.4532499946654,
+        "median": 325.92944242060184,
+        "p95": 416.8229107744992
+      },
+      "e2e_ms": {
+        "mean": 316.5917222108692,
+        "median": 357.1255076676607,
+        "p95": 455.59803610667586
+      }
+    },
+    "lora_native": {
+      "n_measurements": 200,
+      "avg_visual_tokens": 992.2,
+      "avg_output_tokens": 2.76,
+      "generate_ms": {
+        "mean": 364.41320933401585,
+        "median": 369.9332280084491,
+        "p95": 611.3988145254551
+      },
+      "e2e_ms": {
+        "mean": 394.70259320922196,
+        "median": 404.80227395892143,
+        "p95": 665.0393934920428
+      }
+    }
+  },
+  "paired_vs_lora_native": {
+    "vt256": {
+      "n_pairs": 200,
+      "generate_reduction_pct": {
+        "mean": 49.02209944790671,
+        "median": 61.615026604321386
+      },
+      "e2e_reduction_pct": {
+        "mean": 46.95835892801604,
+        "median": 59.11182331836605
+      },
+      "fraction_e2e_faster": 0.97
+    },
+    "vt512": {
+      "n_pairs": 200,
+      "generate_reduction_pct": {
+        "mean": 35.54202978131968,
+        "median": 46.95118090023958
+      },
+      "e2e_reduction_pct": {
+        "mean": 34.239999095075454,
+        "median": 45.53636704018061
+      },
+      "fraction_e2e_faster": 0.95
+    },
+    "vt1024": {
+      "n_pairs": 200,
+      "generate_reduction_pct": {
+        "mean": 13.63158775290125,
+        "median": 11.204432993624275
+      },
+      "e2e_reduction_pct": {
+        "mean": 13.3283100025544,
+        "median": 11.648159217983022
+      },
+      "fraction_e2e_faster": 0.81
+    }
+  },
+  "image_overlap_audit": {
+    "sft_train_test_unique_images": 181,
+    "test_unique_images": 203,
+    "pct": 89.2,
+    "source_train_test_unique_images": 202,
+    "source_train_test_pct": 99.5,
+    "test_qa_on_sft_train_images": 402,
+    "test_qa": 451,
+    "test_qa_on_sft_train_pct": 89.1
+  },
+  "tokenizer_parity_audit": {
+    "n_prompts": 451,
+    "chat_template_mismatches": 0,
+    "base_vs_merged_token_id_mismatches": 0,
+    "base_vs_fixed_merged_token_id_mismatches": 0,
+    "total_prompt_tokens_each": 27529
+  },
+  "semantic_transition_review": [
+    {
+      "comparison": "zero_native -> lora_native",
+      "display_name": "Zero -> LoRA",
+      "strict_gain": 42,
+      "strict_loss": 18,
+      "strict_net": 24,
+      "semantic_correction": 38,
+      "semantic_regression": 16,
+      "semantic_net": 22
+    },
+    {
+      "comparison": "lora_native -> lora_vt1024",
+      "display_name": "Native -> VT1024",
+      "strict_gain": 2,
+      "strict_loss": 1,
+      "strict_net": 1,
+      "semantic_correction": 2,
+      "semantic_regression": 1,
+      "semantic_net": 1
+    },
+    {
+      "comparison": "lora_native -> lora_vt512",
+      "display_name": "Native -> VT512",
+      "strict_gain": 10,
+      "strict_loss": 6,
+      "strict_net": 4,
+      "semantic_correction": 7,
+      "semantic_regression": 6,
+      "semantic_net": 1
+    },
+    {
+      "comparison": "lora_native -> lora_vt256",
+      "display_name": "Native -> VT256",
+      "strict_gain": 8,
+      "strict_loss": 20,
+      "strict_net": -12,
+      "semantic_correction": 6,
+      "semantic_regression": 19,
+      "semantic_net": -13
+    }
+  ],
+  "do_not_claim": [
+    "official VQA-RAD SOTA",
+    "completely unseen-image generalization +5.32 pp",
+    "VT512 improves medical capability",
+    "QLoRA",
+    "7B experiments",
+    "novel token-pruning architecture",
+    "diagnostic dynamic allocation as total peak GPU memory"
+  ]
+}

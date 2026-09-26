@@ -1,0 +1,30 @@
+# Environment used for the completed experiments.
+# Python version used: 3.10.21
+#
+# The recorded PyTorch build was 2.6.0+cu124.
+# CUDA-specific wheels should be installed using the appropriate PyTorch
+# index for the target machine; the public requirement therefore pins
+# the upstream package version without hard-coding the local CUDA wheel tag.
+
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
+
+transformers==4.57.6
+accelerate==1.15.0
+datasets==5.0.1
+huggingface-hub==0.36.2
+qwen-vl-utils[decord]==0.0.8
+
+pandas==2.3.3
+numpy==2.2.6
+
+# Training stack used for the LoRA run.
+ms-swift==4.5.3
+peft==0.20.0
+
+# Imported by project/figure code, but their exact installed versions
+# were not preserved in the experiment logs, so they are intentionally
+# left unpinned rather than guessed.
+Pillow
+matplotlib

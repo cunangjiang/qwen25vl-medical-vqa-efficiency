@@ -1,0 +1,125 @@
+# ============================================================
+# Qwen2.5-VL Medical VQA — public release
+# ============================================================
+
+# -----------------------------
+# Model weights / checkpoints
+# -----------------------------
+models/
+outputs/
+checkpoints/
+checkpoint-*/
+**/checkpoint-*/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.gguf
+
+# Some model repos still use generic *.bin weight files.
+# Keep source/config JSON explicitly rather than committing binary blobs.
+pytorch_model*.bin
+model*.bin
+optimizer*.bin
+
+# -----------------------------
+# Dataset / caches / raw media
+# -----------------------------
+data/
+cache/
+.cache/
+huggingface/
+.huggingface/
+datasets/
+manifests/
+
+# Raw review-image exports / bundles
+review_images/
+**/review_images/
+day*_review_bundle*
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+
+# -----------------------------
+# Raw experiment outputs
+# -----------------------------
+logs/
+runs/
+wandb/
+.wandb/
+screenlog.*
+nohup.out
+
+# Full prediction tables stay in the private experiment workspace.
+results/**/*predictions*.csv
+*_predictions.csv
+
+# Trainer/runtime state that is not part of the public release
+trainer_state.json
+optimizer.pt
+scheduler.pt
+rng_state*.pth
+training_args.bin
+
+# -----------------------------
+# Secrets / machine-local config
+# -----------------------------
+.env
+.env.*
+!.env.example
+credentials.json
+credentials*.json
+secrets.json
+secrets*.json
+*.pem
+*.key
+
+# Machine-specific helper files
+env.sh
+local_config.*
+*.local.yaml
+*.local.yml
+*.local.json
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# -----------------------------
+# Notebook / IDE / OS
+# -----------------------------
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# Build / packaging
+# -----------------------------
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+
+# -----------------------------
+# Temporary files
+# -----------------------------
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
