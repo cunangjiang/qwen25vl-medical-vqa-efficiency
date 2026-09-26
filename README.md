@@ -459,8 +459,3 @@ scripts/benchmark_latency.sh
 
 详见 `docs/THIRD_PARTY.md`。
 
----
-
-## Project Status
-
-Day 6–Day 10 的实验与 validity audit 已冻结。当前仓库为公开展示 / 复现版，不再新增大规模实验。
